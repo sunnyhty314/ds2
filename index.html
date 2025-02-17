@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepseek志欣特别版为您服务</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            margin: 20px;
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #666;
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .image-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Deepseek志欣特别版为您服务</h1>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="请输入您的问题" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的问题'">
+            <button onclick="startProcess()">确定</button>
+        </div>
+        <div class="output" id="output"></div>
+        <div class="image-container" id="imageContainer">
+            <img id="image" src="" alt="">
+            <p id="imageText"></p>
+        </div>
+    </div>
+
+    <script>
+        let isProcessing = false;
+
+        function startProcess() {
+            if (isProcessing) return;
+            isProcessing = true;
+
+            const output = document.getElementById('output');
+            const imageContainer = document.getElementById('imageContainer');
+            const image = document.getElementById('image');
+            const imageText = document.getElementById('imageText');
+
+            output.textContent = '';
+            imageContainer.style.display = 'none';
+            image.src = '';
+            imageText.textContent = '';
+
+            output.textContent = '思考中';
+            let dots = 0;
+            const interval = setInterval(() => {
+                dots = (dots + 1) % 4;
+                output.textContent = '思考中' + '.'.repeat(dots);
+            }, 550);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                output.textContent = '服务器繁忙，请稍后再试';
+                setTimeout(() => {
+                    output.textContent = '';
+                    image.src = 'path_to_first_image.jpg'; // 替换为第一张图片的路径
+                    imageText.textContent = '骗到你了';
+                    imageContainer.style.display = 'block';
+                    setTimeout(() => {
+                        image.src = 'path_to_second_image.jpg'; // 替换为第二张图片的路径
+                        imageText.textContent = '这是猫猫一号';
+                        setTimeout(() => {
+                            image.src = 'path_to_third_image.jpg'; // 替换为第三张图片的路径
+                            imageText.textContent = '这是猫猫二号';
+                            setTimeout(() => {
+                                image.src = 'path_to_fourth_image.jpg'; // 替换为第四张图片的路径
+                                imageText.textContent = '这是猫猫三号';
+                            }, 2000);
+                        }, 2000);
+                    }, 3000);
+                }, 3000);
+            }, 4000);
+
+            isProcessing = false;
+        }
+    </script>
+</body>
+</html>
